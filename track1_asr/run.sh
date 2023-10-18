@@ -5,20 +5,22 @@
 
 # Use this to control how many gpu you use, It's 1-gpu training if you specify
 # just 1gpu, otherwise it's is multiple gpu training based on DDP in pytorch
-export CUDA_VISIBLE_DEVICES="0,1,2,3"
-# for debug purpose, please set it to 1
-export CUDA_LAUNCH_BLOCKING=1
+export CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7"
+# for debug purpose, please set it to 1 otherwise, set it to 0
+export CUDA_LAUNCH_BLOCKING=0
 
 stage=0 # start from 0 if you need to start from data preparation
 stop_stage=0
-data_prep_stage=2
+data_prep_stage=0  # stage for data preparation
 data_prep_stop_stage=2
 
+################################################
 # The icmc-asr dataset location, please change this to your own path!!!
 # make sure of using absolute path. DO-NOT-USE relatvie path!
 data=/home/work_nfs7/hwang/data/ICMC-ASR
 # data dir for IVA + AEC enhanced audio
 data_enhanced=/home/work_nfs7/hwang/data/ICMC-ASR_ENHANCED
+################################################
 
 nj=48
 dict=data/dict/lang_char.txt
@@ -26,8 +28,7 @@ dict=data/dict/lang_char.txt
 # data_type can be `raw` or `shard`. Typically, raw is used for small dataset,
 # `shard` is used for large dataset which is over 1k hours, and `shard` is
 # faster on reading data and training.
-data_type=shard
-shards_root=/home/work_nfs7/hwang/data/wenet_shards/icmcasr
+data_type=raw
 num_utts_per_shard=1000
 
 train_set=train_iva_aec_near
@@ -116,7 +117,7 @@ if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
     echo "GPU $i: train gpu_id $gpu_id"
     python3 wenet/bin/train.py --gpu "$gpu_id" \
       --config $train_config \
-      --data_type shard \
+      --data_type $data_type \
       --symbol_table $dict \
       --train_data data/$train_set/data.list \
       --cv_data data/$dev_set/data.list \

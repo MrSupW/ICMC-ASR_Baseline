@@ -2,4 +2,5 @@
 /track1_asr/data/
 /track1_asr/exp/
 /track1_asr/tensorboard/
-/track1_asr/wenet/__pycache__/
+**/__pycache__/
+**/*.pyc

@@ -4,7 +4,7 @@
 
 This repository is the baseline code for the ICMC-ASR (In-Car Multi-Channel Automatic Speech Recognition).
 
-The code in this repository is based on the End-to-End Speech Recognition Toolkit [WeNet]([wenet-e2e/wenet: Production First and Production Ready End-to-End Speech Recognition Toolkit (github.com)](https://github.com/wenet-e2e/wenet)) and Speaker Recognition Toolkit [WeSpeaker]([wenet-e2e/wespeaker: Research and Production Oriented Speaker Recognition Toolkit (github.com)](https://github.com/wenet-e2e/wespeaker)).
+The code in this repository is based on the End-to-End Speech Recognition Toolkit [WeNet](https://github.com/wenet-e2e/wenet) and Speaker Recognition Toolkit [WeSpeaker](https://github.com/wenet-e2e/wespeaker).
 
 ## Data Preparation
 

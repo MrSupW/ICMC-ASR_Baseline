@@ -96,6 +96,7 @@ fi
 
 if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
   # Training
+  echo "stage 4: Train model config ${train_config}"
   mkdir -p $dir
   INIT_FILE=$dir/ddp_init
   rm -f $INIT_FILE # delete old one before starting
@@ -139,6 +140,7 @@ fi
 
 if [ ${stage} -le 5 ] && [ ${stop_stage} -ge 5 ]; then
   # Test model, please specify the model you want to test by --checkpoint
+  echo "stage 5: Test model testset ${test_set}"
   if [ ${average_checkpoint} == true ]; then
     decode_checkpoint=$dir/avg_${average_num}.pt
     echo "do model average and final checkpoint is $decode_checkpoint"
@@ -182,4 +184,14 @@ if [ ${stage} -le 5 ] && [ ${stop_stage} -ge 5 ]; then
   fi
   done
   wait
+fi
+
+if [ ${stage} -le 6 ] && [ ${stop_stage} -ge 6 ]; then
+  echo "stage 6: Generate submission file for track1 leaderboard"
+  for mode in ${decode_modes}; do
+  {
+    test_dir=$dir/${test_set}_${mode}
+    python3 local/generate_submission_file.py "$test_dir"
+  }
+  done
 fi

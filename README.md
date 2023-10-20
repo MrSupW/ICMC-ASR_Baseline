@@ -82,6 +82,12 @@ The main steps are all in track1_asr/run.sh
 
 **[Stage 5]** Do model average and decoding.
 
+### CER Results
+
+| Dataset |          Training Data           | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beamsearch |
+| :-----: | :------------------------------: | :-------: | :-----------------: | :---------------: | :-------------------: |
+|   Dev   | IVA+AEC Far-field and Near-field |   39.15   |        38.85        |       39.52       |         39.48         |
+
 ## Track2  Baseline (Coming soon)
 
 Before running the track2 baseline, please make sure you have run all the stages in track1_asr/run.sh and get the trained ASR model.

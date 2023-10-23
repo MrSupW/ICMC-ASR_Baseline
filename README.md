@@ -86,7 +86,7 @@ The main steps are all in track1_asr/run.sh
 
 | Dataset |          Training Data           | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beamsearch |
 | :-----: | :------------------------------: | :-------: | :-----------------: | :---------------: | :-------------------: |
-|   Dev   | IVA+AEC Far-field and Near-field |   39.15   |        38.85        |       39.52       |         39.48         |
+|   Dev   | IVA+AEC Far-field and Near-field |   33.50   |        33.50        |       34.06       |         34.05         |
 
 ## Track2  Baseline (Coming soon)
 

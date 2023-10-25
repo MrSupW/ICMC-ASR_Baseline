@@ -4,7 +4,7 @@
 
 This repository is the baseline code for the ICMC-ASR (In-Car Multi-Channel Automatic Speech Recognition).
 
-The code in this repository is based on the End-to-End Speech Recognition Toolkit [WeNet](https://github.com/wenet-e2e/wenet) and Speaker Recognition Toolkit [WeSpeaker](https://github.com/wenet-e2e/wespeaker).
+The code in this repository is based on the End-to-End Speech Recognition Toolkit [WeNet](https://github.com/wenet-e2e/wenet) and the Speaker Diarization toolkit [Pyannote-Audio](https://github.com/pyannote/pyannote-audio).
 
 ## Data Preparation
 
@@ -84,14 +84,51 @@ The main steps are all in track1_asr/run.sh
 
 ### CER Results
 
-| Dataset |          Training Data           | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beamsearch |
-| :-----: | :------------------------------: | :-------: | :-----------------: | :---------------: | :-------------------: |
-|   Dev   | IVA+AEC Far-field and Near-field |   33.50   |        33.50        |       34.06       |         34.05         |
+| Dataset |          Training Data           | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
+| :-----: | :------------------------------: | :-------: | :-----------------: | :---------------: | :--------------------: |
+|   Dev   | IVA+AEC Far-field and Near-field |   33.50   |        33.50        |       34.06       |         34.05          |
 
-## Track2  Baseline (Coming soon)
+## Track2  Baseline
 
 Before running the track2 baseline, please make sure you have run all the stages in track1_asr/run.sh and get the trained ASR model.
 
+The VAD model of the track2 baseline is based on [Pyannote-Audio](https://github.com/pyannote/pyannote-audio). The installation steps are as follows.
+
+1. Create a new conda environment with python3.9+ and torch2.0.0+ by the following steps. Or just modify the torch version of the conda env created at track1 baseline.
+
+   ```shell
+   # create environment
+   conda create -n icmcasr-pyannote python=3.9 -y
+   conda activate icmcasr-pyannote
+   # install pytorch torchvision and torchaudio
+   conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 -c pytorch
+   ```
+
+2. Install [`pyannote.audio`](https://github.com/pyannote/pyannote-audio) with `pip install pyannote.audio`
+
+3. Accept [`pyannote/segmentation`](https://hf.co/pyannote/segmentation) user conditions
+
+4. Create your access token at [`hf.co/settings/tokens`](https://hf.co/settings/tokens).
+
+The main steps are all in track2_asdr/run.sh
+
+**[Stage 0]** Do VAD for enhanced audio data.
+
+**[Stage 1]** Segment audio data based on VAD results.
+
+**[Stage 2]** Prepare the data in the WeNet required format.
+
+**[Stage 3]** Decode using track1 baseline model.
+
+**[Stage 4]** Generate submission file for track2 leaderboard.
+
+**[Stage 5]** Compute cpCER of the dev set.
+
+### cpCER Results
+
+| Dataset |       VAD Model       |       ASR Model        | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
+| :-----: | :-------------------: | :--------------------: | :-------: | :-----------------: | :---------------: | :--------------------: |
+|   Dev   | Pyannote/Segmentation | baseline_ebranchformer |   64.98   |        64.26        |       64.75       |         64.79          |
 
 ## License
 
@@ -102,4 +139,3 @@ It is noted that the code can only be used for comparative or benchmarking purpo
 ```
 [ICMC-ASR Committee](icmcasr_challenge@aishelldata.com)
 ```
-

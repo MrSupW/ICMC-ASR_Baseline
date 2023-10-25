@@ -4,3 +4,4 @@
 /track1_asr/tensorboard/
 **/__pycache__/
 **/*.pyc
+/track2_asdr/exp/pyannote_vad/

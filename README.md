@@ -126,9 +126,9 @@ The main steps are all in track2_asdr/run.sh
 
 ### cpCER Results
 
-| Dataset |       VAD Model       |       ASR Model        | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
-| :-----: | :-------------------: | :--------------------: | :-------: | :-----------------: | :---------------: | :--------------------: |
-|   Dev   | Pyannote/Segmentation | baseline_ebranchformer |   64.98   |        64.26        |       64.75       |         64.79          |
+| Dataset |          VAD          |      ASR      | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
+| :-----: | :-------------------: | :-----------: | :-------: | :-----------------: | :---------------: | :--------------------: |
+|   Dev   | pyannote/segmentation | ebranchformer |   64.98   |        64.26        |       64.75       |         64.79          |
 
 ## License
 

@@ -10,19 +10,19 @@ export CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7"
 export CUDA_LAUNCH_BLOCKING=0
 
 stage=0 # start from 0 if you need to start from data preparation
-stop_stage=0
+stop_stage=6
 data_prep_stage=0  # stage for data preparation
 data_prep_stop_stage=2
 
 ################################################
 # The icmc-asr dataset location, please change this to your own path!!!
 # make sure of using absolute path. DO-NOT-USE relatvie path!
-data=/home/work_nfs7/hwang/data/ICMC-ASR
+data=/home/work_nfs4_ssd/hwang/data/ICMC-ASR
 # data dir for IVA + AEC enhanced audio
-data_enhanced=/home/work_nfs7/hwang/data/ICMC-ASR_ENHANCED
+data_enhanced=/home/work_nfs4_ssd/hwang/data/ICMC-ASR_ENHANCED
 ################################################
 
-nj=48
+nj=64
 dict=data/dict/lang_char.txt
 
 # data_type can be `raw` or `shard`. Typically, raw is used for small dataset,
@@ -31,9 +31,9 @@ dict=data/dict/lang_char.txt
 data_type=raw
 num_utts_per_shard=1000
 
-train_set=train_iva_aec_near
-dev_set=dev_iva_aec
-test_set=dev_iva_aec
+train_set=train_aec_iva_near
+dev_set=dev_aec_iva
+test_set=dev_aec_iva
 train_config=conf/train_ebranchformer.yaml
 cmvn=true
 dir=exp/baseline_ebranchformer
@@ -51,8 +51,8 @@ decode_modes="ctc_greedy_search ctc_prefix_beam_search attention attention_resco
 . tools/parse_options.sh || exit 1;
 
 if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
-  # Frontend IVA + AEC + Data preparation
-  echo "stage 0: Frontend IVA + AEC + Data preparation"
+  # Frontend AEC + IVA + Data preparation
+  echo "stage 0: Frontend AEC + IVA + Data preparation"
   for x in ${dev_set} ${train_set}; do
     local/icmcasr_data_prep.sh --stage ${data_prep_stage} --stop_stage ${data_prep_stop_stage} \
       --nj ${nj} ${data} ${data_enhanced} ${x}

@@ -1,7 +1,7 @@
 . ./path.sh || exit 1
 
 stage=0
-stop_stage=1
+stop_stage=2
 nj=48
 
 . tools/parse_options.sh
@@ -12,7 +12,7 @@ dataset=$3
 
 
 if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
-  echo "[local/icmcasr_data_prep.sh] stage 0: IVA + AEC Enhancement"
+  echo "[local/icmcasr_data_prep.sh] stage 0: AEC + IVA Enhancement"
   local/enhancement.sh --nj ${nj} ${data_root} ${enhanced_data_root} ${dataset}
 fi
 

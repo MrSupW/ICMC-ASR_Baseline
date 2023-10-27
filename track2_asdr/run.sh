@@ -18,7 +18,7 @@ HUGGINGFACE_ACCESS_TOKEN="YOUR_HUGGINGFACE_ACCESS_TOKEN"
 # The icmc-asr dataset location, please change this to your own path!!!
 # Make sure of using absolute path. DO-NOT-USE relatvie path!
 # data dir for IVA + AEC enhanced audio
-data_enhanced=/home/work_nfs7/hwang/data/ICMC-ASR_ENHANCED
+data_enhanced=/home/work_nfs4_ssd/hwang/data/ICMC-ASR_ENHANCED
 ################################################
 
 nj=48
@@ -32,7 +32,7 @@ threshold=0.95
 data_type=raw
 num_utts_per_shard=1000
 
-test_set=dev_iva_aec
+test_set=dev_aec_iva
 dir=exp/baseline_ebranchformer
 
 # use average_checkpoint will get better result
@@ -128,9 +128,9 @@ if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
   done
 fi
 
-# only for dev_iva_aec set
+# only for dev_aec_iva set
 if [ ${stage} -le 5 ] && [ ${stop_stage} -ge 5 ]; then
-  echo "stage 5: Compute cpCER of dev_iva_aec set"
+  echo "stage 5: Compute cpCER of dev_aec_iva set"
   for mode in ${decode_modes}; do
   {
     echo "compute cpCER for ${test_set}_${mode}_${threshold}"

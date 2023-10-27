@@ -1,8 +1,10 @@
-import argparse
 import os
+import argparse
+import numpy as np
 import soundfile as sf
 
-import numpy as np
+from tqdm import tqdm
+
 
 def rstft(x, nfft, shift, win):
     nframe = int((len(x) - nfft) / shift) + 1
@@ -17,6 +19,7 @@ def rstft(x, nfft, shift, win):
     Y = Y[:nfft // 2 + 1, :]
 
     return Y
+
 
 def irstft(Y, shift, win=None):
     Y = np.vstack([Y, np.conj(np.flipud(Y[1:-1, :]))])
@@ -41,6 +44,7 @@ def irstft(Y, shift, win=None):
 
     return x
 
+
 def iva(sp_in, fs=16000, eps=1e-6, epoch=30, nfft=512, nshift=256):
     nTime, M = sp_in.shape
     nf = nfft // 2 + 1
@@ -57,10 +61,12 @@ def iva(sp_in, fs=16000, eps=1e-6, epoch=30, nfft=512, nshift=256):
     Winv = np.tile(np.eye(M, dtype=np.complex64).reshape(M, M, 1), (1, 1, nf))
     Wt = np.tile(np.eye(M, dtype=np.complex64).reshape(M, M, 1), (1, 1, nf))
     Vk = np.tile(np.eye(M, dtype=np.complex64).reshape(M, M, 1, 1), (1, 1, nf, M))
-    Rx = np.multiply(np.transpose(np.expand_dims(X, 3), (2, 3, 0, 1)), np.transpose(np.conj(np.expand_dims(X, 3)), (3, 2, 0, 1)))
+    Rx = np.multiply(np.transpose(np.expand_dims(X, 3), (2, 3, 0, 1)),
+                     np.transpose(np.conj(np.expand_dims(X, 3)), (3, 2, 0, 1)))
 
-    for iter in range(epoch):
-        Yp = np.sum(np.multiply(np.transpose(np.expand_dims(W, 3), (0, 1, 3, 2)), np.transpose(np.expand_dims(X, 3), (3, 2, 1, 0))), axis=1)
+    for iter in tqdm(range(epoch), desc="IVA Iteration"):
+        Yp = np.sum(np.multiply(np.transpose(np.expand_dims(W, 3), (0, 1, 3, 2)),
+                                np.transpose(np.expand_dims(X, 3), (3, 2, 1, 0))), axis=1)
         R = np.sum(np.real(Yp * np.conj(Yp)), axis=2)
         Gr = 1 / (np.sqrt(R) + eps)
 
@@ -74,7 +80,6 @@ def iva(sp_in, fs=16000, eps=1e-6, epoch=30, nfft=512, nshift=256):
 
         for i in range(nf):
             Winv[:, :, i] = np.linalg.pinv(W[:, :, i])
-        # print("epoch ", iter, " done")
 
     # Normalize W
     for i in range(nf):
@@ -94,9 +99,10 @@ def iva(sp_in, fs=16000, eps=1e-6, epoch=30, nfft=512, nshift=256):
 
     return sp_out
 
+
 def main(args):
     session2utt = {}
-    
+
     with open(args.wav_scp, "r") as f:
         for line in f.readlines():
             utt, path = line.strip().split()
@@ -118,7 +124,8 @@ def main(args):
 
         os.makedirs(os.path.join(args.save_path, session), exist_ok=True)
         for i in range(4):
-            sf.write(os.path.join(args.save_path, session, f"DX0{i+1}C01.wav"), y[i], sr)
+            sf.write(os.path.join(args.save_path, session, f"DX0{i + 1}C01.wav"), y[i], sr)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

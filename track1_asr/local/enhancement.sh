@@ -37,7 +37,7 @@ if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
   for suffix in `seq 0 $[${nj}-1]`;do
       suffix=`printf '%03d' $suffix`
       scp_subfile=exp/enhance/${dataset}/split_scp/${prefix}_scp_${suffix}
-      python3 local/enhance.py \
+      python3 -u local/enhance.py \
           --wav_scp ${scp_subfile} \
           --save_path ${enhanced_data_root}/${dataset} \
           > exp/enhance/${dataset}/log/${prefix}.${suffix}.log 2>&1 &

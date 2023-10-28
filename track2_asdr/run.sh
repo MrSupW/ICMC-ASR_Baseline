@@ -5,7 +5,7 @@
 
 # Use this to control how many gpu you use, It's 1-gpu training if you specify
 # just 1gpu, otherwise it's is multiple gpu training based on DDP in pytorch
-export CUDA_VISIBLE_DEVICES="1,2,3,4"
+export CUDA_VISIBLE_DEVICES="0,1,2,3"
 # for debug purpose, please set it to 1 otherwise, set it to 0
 export CUDA_LAUNCH_BLOCKING=0
 
@@ -21,7 +21,7 @@ HUGGINGFACE_ACCESS_TOKEN="YOUR_HUGGINGFACE_ACCESS_TOKEN"
 data_enhanced=/home/work_nfs4_ssd/hwang/data/ICMC-ASR_ENHANCED
 ################################################
 
-nj=48
+nj=64
 dict=data/dict/lang_char.txt
 
 # Pyannote VAD activation threshold
@@ -36,7 +36,7 @@ test_set=dev_aec_iva
 dir=exp/baseline_ebranchformer
 
 # use average_checkpoint will get better result
-decode_checkpoint=$dir/avg_30.pt
+decode_checkpoint=$dir/avg_10.pt
 decode_modes="ctc_greedy_search ctc_prefix_beam_search attention attention_rescoring"
 
 . tools/parse_options.sh || exit 1;

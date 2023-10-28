@@ -70,7 +70,7 @@ pip install -r requirements.txt
 
 The main steps are all in track1_asr/run.sh
 
-**[Stage 0]** Audio Frontend IVA + AEC. Segment long waves into short slices and prepare the data files (wav.scp, text, utt2spk and spk2utt).
+**[Stage 0]** Audio Frontend AEC + IVA. Segment long waves into short slices and prepare the data files (wav.scp, text, utt2spk and spk2utt).
 
 **[Stage 1]** Compute CMVN value of training set for audio feature normalization.
 
@@ -86,7 +86,7 @@ The main steps are all in track1_asr/run.sh
 
 | Dataset |          Training Data           | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
 | :-----: | :------------------------------: | :-------: | :-----------------: | :---------------: | :--------------------: |
-|   Dev   | IVA+AEC Far-field and Near-field |   33.50   |        33.50        |       34.06       |         34.05          |
+|   Dev   | AEC+IVA Far-field and Near-field |   33.28   |        32.92        |       33.66       |         33.66          |
 
 ## Track2  Baseline
 
@@ -128,7 +128,7 @@ The main steps are all in track2_asdr/run.sh
 
 | Dataset |          VAD          |      ASR      | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
 | :-----: | :-------------------: | :-----------: | :-------: | :-----------------: | :---------------: | :--------------------: |
-|   Dev   | pyannote/segmentation | ebranchformer |   64.98   |        64.26        |       64.75       |         64.79          |
+|   Dev   | pyannote/segmentation | ebranchformer |   67.17   |        65.90        |       66.32       |         66.48          |
 
 ## License
 

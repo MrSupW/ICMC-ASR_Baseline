@@ -17,7 +17,7 @@ from concurrent.futures import ProcessPoolExecutor
 def rttm2wav(line):
     line = line.strip()
     _, session, _, start, duration, _, _, seat, _, _ = line.split()
-    wav = AudioSegment.from_wav(f"{enhanced_data_root}/{dataset.split('_')[0]}/{session}/DX0{seat}C01.wav")
+    wav = AudioSegment.from_wav(f"{enhanced_data_root}/{dataset.split('_aec_iva')[0]}/{session}/DX0{seat}C01.wav")
     start = int(float(start) * 1000)
     end = start + int(float(duration) * 1000)
     export_wav_path = f"{output_dir}/P000{seat}_{session}_DX0{seat}C01_{start:0>6}-{end:0>6}.wav"

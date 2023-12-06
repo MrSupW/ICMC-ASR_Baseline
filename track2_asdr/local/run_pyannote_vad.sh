@@ -10,6 +10,9 @@ dataset=$2
 threshold=$3
 HUGGINGFACE_ACCESS_TOKEN=$4
 dataset_prefix=$(echo "$dataset" | cut -d '_' -f 1)
+if [ "${dataset_prefix}" == "eval" ]; then
+  dataset_prefix=$(echo "$dataset" | cut -d _ -f 1-2)
+fi
 
 if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
   echo "[local/run_vad.sh] stage 0 generate wav.scp file for ${dataset}_${threshold} set"

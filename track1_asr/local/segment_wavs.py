@@ -98,7 +98,7 @@ def multiThread_use_ProcessPoolExecutor_dicarg(scp, numthread, func, args):
 
 if __name__ == '__main__':
     data_root, enhanced_data_root, dataset, nj = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
-    dataset = dataset.split('_')[0]
+    dataset = dataset.split('_aec_iva')[0]
     audio_root = f"{data_root}/{dataset}"
     wav_scp = [wav for wav in glob.glob(f'{audio_root}/*/*.wav') if not wav.split('/')[-1].startswith(("DX05", "DX06"))]
     wav_scp.sort()

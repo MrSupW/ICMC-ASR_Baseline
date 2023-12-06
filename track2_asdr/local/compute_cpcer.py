@@ -25,7 +25,7 @@ def get_parser():
 def read_hyp_and_ref(hyp_path, ref_path):
     content_hyp, content_ref = [], []
     # read hyp file
-    with codecs.open(hyp_path, "r") as f_hyp:
+    with codecs.open(hyp_path, "r", encoding='utf-8') as f_hyp:
         for line in f_hyp.readlines():
             line = line.replace("<sos/eos>", "").strip()
             if len(line.split(" ")) == 1:
@@ -33,7 +33,7 @@ def read_hyp_and_ref(hyp_path, ref_path):
                 continue
             content_hyp.append(line)
     # read ref file
-    with codecs.open(ref_path, "r") as f_ref:
+    with codecs.open(ref_path, "r", encoding='utf-8') as f_ref:
         for line in f_ref.readlines():
             line = line.strip()
             content_ref.append(line)

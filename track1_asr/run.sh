@@ -33,7 +33,7 @@ num_utts_per_shard=1000
 
 train_set=train_aec_iva_near
 dev_set=dev_aec_iva
-test_set=dev_aec_iva
+test_set="eval_track1_aec_iva"
 train_config=conf/train_ebranchformer.yaml
 cmvn=true
 dir=exp/baseline_ebranchformer
@@ -53,7 +53,7 @@ decode_modes="ctc_greedy_search ctc_prefix_beam_search attention attention_resco
 if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
   # Frontend AEC + IVA + Data preparation
   echo "stage 0: Frontend AEC + IVA + Data preparation"
-  for x in ${dev_set} ${train_set}; do
+  for x in ${dev_set} ${train_set} ${test_set}; do
     local/icmcasr_data_prep.sh --stage ${data_prep_stage} --stop_stage ${data_prep_stop_stage} \
       --nj ${nj} ${data} ${data_enhanced} ${x}
   done
@@ -82,7 +82,7 @@ fi
 
 if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
   echo "stage 3: Prepare data, prepare required format"
-  for x in ${dev_set} ${train_set}; do
+  for x in ${dev_set} ${train_set} ${test_set}; do
     if [ $data_type == "shard" ]; then
       tools/make_shard_list.py --num_utts_per_shard $num_utts_per_shard \
         --num_threads ${nj} data/$x/wav.scp data/$x/text \

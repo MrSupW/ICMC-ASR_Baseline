@@ -32,7 +32,7 @@ threshold=0.95
 data_type=raw
 num_utts_per_shard=1000
 
-test_set=dev_aec_iva
+test_set="eval_track2_aec_iva"
 dir=exp/baseline_ebranchformer
 
 # use average_checkpoint will get better result

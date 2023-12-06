@@ -9,16 +9,16 @@ from normalize.cn_tn import TextNorm
 
 
 def prepare_data(dataset_pf):
-    # train dev eval_track1 eval_track2
+    # train dev eval_track1
     audio_dirs = glob.glob(f"{data_root}/{dataset_pf}/*")
     wav_scp = []
     text = []
     for audio_dir in tqdm(audio_dirs):
         # near field audio
-        near_wavs = glob.glob(f"{audio_dir}/DA0*.wav")
+        near_textgrids = glob.glob(f"{audio_dir}/DA0*.TextGrid")
         # 1 2 3 4
-        near_seat_ids = [wav.split('/')[-1][3] for wav in near_wavs]
-        near_wav_dirs = [wav.replace('.wav', '') for wav in near_wavs]
+        near_seat_ids = [tg.split('/')[-1][3] for tg in near_textgrids]
+        near_wav_dirs = [tg.replace('.TextGrid', '') for tg in near_textgrids]
         # search far-field audio by seat id
         far_wav_dirs = [f"{audio_dir.replace(data_root, enhanced_data_root)}/DX0{seat_id}C01"
                         for seat_id in near_seat_ids]
@@ -62,6 +62,6 @@ def prepare_data(dataset_pf):
 
 if __name__ == '__main__':
     data_root, enhanced_data_root, dataset = sys.argv[1], sys.argv[2], sys.argv[3]
-    dataset_prefix = dataset.split('_')[0]
+    dataset_prefix = dataset.split('_aec_iva')[0]
     text_normalizer = TextNorm(to_banjiao=True, to_upper=True)
     prepare_data(dataset_prefix)

@@ -82,11 +82,12 @@ The main steps are all in track1_asr/run.sh
 
 **[Stage 5]** Do model average and decoding.
 
-### CER Results
+### CER(%) Results
 
-| Dataset |          Training Data           | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
-| :-----: | :------------------------------: | :-------: | :-----------------: | :---------------: | :--------------------: |
-|   Dev   | AEC+IVA Far-field and Near-field |   33.28   |        32.92        |       33.66       |         33.66          |
+|   Dataset   |          Training Data           | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
+| :---------: | :------------------------------: | :-------: | :-----------------: | :---------------: | :--------------------: |
+|     Dev     | AEC+IVA Far-field and Near-field |   33.28   |        32.92        |       33.66       |         33.66          |
+| Eval_Track1 | AEC+IVA Far-field and Near-field |   26.78   |        26.24        |       26.88       |         26.81          |
 
 ## Track2  Baseline
 
@@ -124,11 +125,12 @@ The main steps are all in track2_asdr/run.sh
 
 **[Stage 5]** Compute cpCER of the dev set.
 
-### cpCER Results
+### cpCER(%) Results
 
-| Dataset |          VAD          |      ASR      | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
-| :-----: | :-------------------: | :-----------: | :-------: | :-----------------: | :---------------: | :--------------------: |
-|   Dev   | pyannote/segmentation | ebranchformer |   67.17   |        65.90        |       66.32       |         66.48          |
+|   Dataset   |          VAD          |      ASR      | Attention | Attention Rescoring | CTC Greedy Search | CTC Prefix Beam Search |
+| :---------: | :-------------------: | :-----------: |:---------:|:-------------------:|:-----------------:|:----------------------:|
+|     Dev     | pyannote/segmentation | ebranchformer |   67.17   |        65.90        |       66.32       |         66.48          |
+| Eval_Track2 | pyannote/segmentation | ebranchformer |   74.29   |        72.88        |       73.19       |         73.52          |
 
 ## License
 

@@ -5,3 +5,8 @@
 **/__pycache__/
 **/*.pyc
 /track2_asdr/exp/pyannote_vad/
+/track2_asdr/data/*_aec_iva_0.95/
+/track2_asdr/data/vad/
+/track2_asdr/data/eval_ref.txt
+/track2_asdr/exp/baseline_ebranchformer/dev_aec_iva_*/
+/track2_asdr/exp/baseline_ebranchformer/eval_track2_*/
